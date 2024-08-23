@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_bottom_help"
+        android:icon="@android:drawable/btn_star"
+        android:title="Помощь" />
+    <item
+        android:id="@+id/nav_bottom_service"
+        android:icon="@android:drawable/stat_sys_headset"
+        android:title="Сервисы" />
+    <item
+        android:id="@+id/nav_bottom_chosen"
+        android:icon="@android:drawable/btn_star"
+        android:title="Избранное" />
+</menu>

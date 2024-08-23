@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="body_types_array">
+        <item>Седан</item>
+        <item>Купе</item>
+        <item>Хэтчбек</item>
+        <item>Универсал</item>
+        <item>Кроссовер</item>
+        <item>Внедорожник</item>
+        <item>Грузовой</item>
+    </string-array>
+</resources>

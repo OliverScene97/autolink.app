@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "842891616020",
+    "firebase_url": "https://mecha-6b121-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "mecha-6b121",
+    "storage_bucket": "mecha-6b121.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842891616020:android:a96dd7db3f4bb134be6c01",
+        "android_client_info": {
+          "package_name": "com.mecha.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1guHYa5w2wPeYPPyqIJQdQKyi_86-0ag"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
