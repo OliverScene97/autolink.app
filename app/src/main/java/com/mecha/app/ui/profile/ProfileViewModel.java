@@ -1,57 +1,73 @@
 package com.mecha.app.ui.profile;
 
 import android.app.Application;
-import android.content.Intent;
 import android.net.Uri;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ProfileViewModel extends AndroidViewModel {
 
     private MutableLiveData<UserProfile> profile;
+    private RequestQueue requestQueue; // Для отправки запросов через Volley
 
     public ProfileViewModel(@NonNull Application application) {
         super(application);
         profile = new MutableLiveData<>();
-        loadProfile();
+        requestQueue = Volley.newRequestQueue(application); // Инициализация RequestQueue
     }
 
     public LiveData<UserProfile> getProfile() {
         return profile;
     }
 
-    private void loadProfile() {
+    // Метод для проверки существования профиля
+    public void checkProfileExists() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(userId);
-            reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    UserProfile userProfile = snapshot.getValue(UserProfile.class);
-                    profile.setValue(userProfile);
-                }
+            String url = "http://" + "192.168.195.61" + ":3000/api/profile/" + userId;
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    // Обработка ошибок
-                }
-            });
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                    response -> {
+                        // Если профиль существует, устанавливаем данные профиля
+                        try {
+                            String name = response.getString("name");
+                            String carManufacturer = response.getString("carManufacturer");
+                            String carModel = response.getString("carModel");
+                            String bodyType = response.getString("bodyType");
+                            String carYear = response.getString("carYear");
+                            String vinNumber = response.getString("vinNumber");
+                            String avatarUrl = response.getString("avatarUrl");
+
+                            UserProfile userProfile = new UserProfile(avatarUrl, carManufacturer, carModel, bodyType, carYear, vinNumber, name);
+                            profile.setValue(userProfile);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    },
+                    error -> {
+                        if (error.networkResponse != null && error.networkResponse.statusCode == 404) {
+                            // Профиль не найден, можно предложить создать новый
+                            profile.setValue(null);
+                        } else {
+                            Toast.makeText(getApplication(), "Ошибка при проверке профиля", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+            requestQueue.add(jsonObjectRequest);
         } else {
-            // Обработка случая, когда пользователь не авторизован
-            // Например, можно установить profile как null или создать лог для отладки
             profile.setValue(null);
         }
     }
@@ -60,28 +76,32 @@ public class ProfileViewModel extends AndroidViewModel {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users").child(userId);
+            String url = "http://192.168.195.61:3000/api/profile/create";
 
-            // Сохранение аватара в Firebase Storage и получение URL
-            StorageReference avatarRef = FirebaseStorage.getInstance().getReference("avatars").child(userId + ".jpg");
-            avatarRef.putFile(avatarUri).addOnSuccessListener(taskSnapshot -> avatarRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                String avatarUrl = uri.toString();
+            // Создание JSON объекта с данными профиля
+            JSONObject profileData = new JSONObject();
+            try {
+                profileData.put("userId", userId);
+                profileData.put("carManufacturer", carManufacturer);
+                profileData.put("carModel", carModel);
+                profileData.put("bodyType", bodyType);
+                profileData.put("carYear", carYear);
+                profileData.put("vinNumber", vinNumber);
+                profileData.put("nickName", nickName);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-                UserProfile profile = new UserProfile(avatarUrl, carManufacturer, carModel, bodyType, carYear, vinNumber, nickName);
-                reference.setValue(profile).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // Обновление шапки профиля сразу после сохранения данных
-                        Intent intent = new Intent("com.mecha.app.UPDATE_PROFILE_HEADER");
-                        intent.putExtra("avatarUrl", avatarUrl);
-                        intent.putExtra("nickName", nickName);
-                        getApplication().sendBroadcast(intent);
-                        Toast.makeText(getApplication(), "Данные сохранены", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }));
-        } else {
-            // Обработка случая, когда пользователь не авторизован
-            // Например, можно создать лог для отладки
+            // Создание POST-запроса для сохранения профиля
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, profileData,
+                    response -> {
+                        Toast.makeText(getApplication(), "Профиль успешно сохранен", Toast.LENGTH_SHORT).show();
+                    },
+                    error -> {
+                        Toast.makeText(getApplication(), "Ошибка при сохранении профиля", Toast.LENGTH_SHORT).show();
+                    });
+
+            requestQueue.add(jsonObjectRequest);
         }
     }
 }

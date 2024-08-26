@@ -19,11 +19,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mecha.app.LoginActivity;
-import com.mecha.app.MainActivity;
 import com.mecha.app.R;
 import com.squareup.picasso.Picasso;
-
 import static android.app.Activity.RESULT_OK;
+
 
 public class ProfileFragment extends Fragment {
 
@@ -53,7 +52,6 @@ public class ProfileFragment extends Fragment {
 
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
-        // Заполнение выпадающего списка типами кузова
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.body_types_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -64,6 +62,9 @@ public class ProfileFragment extends Fragment {
         saveProfileButton.setOnClickListener(v -> saveProfile());
 
         logoutButton.setOnClickListener(v -> logout());
+
+        // Проверка существования профиля
+        profileViewModel.checkProfileExists();
 
         profileViewModel.getProfile().observe(getViewLifecycleOwner(), profile -> {
             if (profile != null) {
@@ -79,8 +80,10 @@ public class ProfileFragment extends Fragment {
                     bodyTypeSpinner.setSelection(position);
                 }
 
-                // Загрузка аватара с использованием Picasso
                 Picasso.get().load(profile.avatarUrl).into(avatarImageView);
+            } else {
+                // Профиль не существует, предложить создать новый
+                Toast.makeText(getActivity(), "Профиль не найден. Пожалуйста, создайте новый.", Toast.LENGTH_SHORT).show();
             }
         });
 
