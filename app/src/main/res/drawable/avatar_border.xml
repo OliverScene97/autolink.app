@@ -2,6 +2,6 @@
     <solid android:color="@android:color/transparent"/>
     <stroke
         android:width="2dp"
-        android:color="#FF5722"/> <!-- Задайте цвет рамки -->
+        android:color="@color/gradientEnd"/> <!-- Задайте цвет рамки -->
     <corners android:radius="1500dp"/> <!-- Закругленные углы для круглой рамки -->
 </shape>

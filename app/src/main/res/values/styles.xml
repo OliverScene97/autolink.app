@@ -14,7 +14,7 @@
 
     <style name="PopupThemeOverlay" parent="ThemeOverlay.AppCompat.Light">
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:textColorPrimary">@color/bottomNavItemColor</item>
     </style>
 
     <style name="CustomBottomNavigationView" parent="Widget.Design.BottomNavigationView">
@@ -35,6 +35,7 @@
     <style name="MyButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:background">@color/colorAccent</item>
         <item name="android:textColor">#FFFFFF</item>
+        <item name="cornerRadius">25dp</item>
     </style>
 
 </resources>
