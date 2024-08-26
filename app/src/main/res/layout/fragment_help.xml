@@ -1,53 +1,102 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/problemDescriptionEditText"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Опишите проблему"
-        android:inputType="textMultiLine"
-        android:layout_marginBottom="16dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp">
 
-    <EditText
-        android:id="@+id/priceEditText"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <EditText
+                android:id="@+id/problemDescriptionEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:autofillHints="non"
+                android:background="@android:color/white"
+                android:hint="@string/request_description"
+                android:inputType="textMultiLine"
+                android:maxLines="5"
+                android:minLines="3"
+                android:padding="10dp"
+                android:paddingBottom="4dp" />
+
+            <EditText
+                android:id="@+id/priceEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:autofillHints="non"
+                android:background="@android:color/white"
+                android:hint="@string/request_price"
+                android:inputType="numberDecimal"
+                android:padding="10dp" />
+
+            <EditText
+                android:id="@+id/carManufacturerEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:autofillHints="non"
+                android:background="@android:color/white"
+                android:hint="@string/request_manufacturer"
+                android:padding="10dp" />
+
+            <EditText
+                android:id="@+id/carModelEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:autofillHints="non"
+                android:background="@android:color/white"
+                android:hint="@string/request_model"
+                android:padding="10dp" />
+
+            <EditText
+                android:id="@+id/carYearEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:autofillHints="non"
+                android:background="@android:color/white"
+                android:hint="@string/request_year"
+                android:inputType="number"
+                android:padding="10dp" />
+
+            <EditText
+                android:id="@+id/vinNumberEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:autofillHints="non"
+                android:background="@android:color/white"
+                android:hint="@string/request_VIN"
+                android:padding="10dp"
+                tools:ignore="TextFields" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        style="@style/CustomButton"
+        android:id="@+id/sendButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Предложите вашу цену"
-        android:inputType="numberDecimal"
-        android:layout_marginBottom="16dp" />
+        android:text="@string/send"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
-    <EditText
-        android:id="@+id/carManufacturerEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Производитель авто"
-        android:layout_marginBottom="16dp" />
-
-    <EditText
-        android:id="@+id/carModelEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Модель авто"
-        android:layout_marginBottom="16dp" />
-
-    <EditText
-        android:id="@+id/carYearEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Год выпуска"
-        android:inputType="number"
-        android:layout_marginBottom="16dp" />
-
-    <EditText
-        android:id="@+id/vinNumberEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="VIN номер"
-        android:layout_marginBottom="16dp" />
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

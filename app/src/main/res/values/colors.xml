@@ -3,13 +3,26 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="track_color_on">#FF9800</color>
-    <color name="track_color_off">#673AB7</color>
-    <color name="thumb_color_on">#673AB7</color>
-    <color name="thumb_color_off">#673AB7</color>
+    <color name="track_color_on">#6F4C3E</color>
+    <color name="track_color_off">#875C4D</color>
+    <color name="thumb_color_on">#A4846C</color>
+    <color name="thumb_color_off">#C5B59C</color>
 
+    <color name="colorPrimary">#6F4C3E</color>
+    <color name="colorPrimaryDark">#4B3C32</color>
+    <color name="colorAccent">#A4846C</color>
+    <color name="customColor">#C5B59C</color>
 
-    <color name="colorAccent">#FF9800</color>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3F51B5</color>
+    <color name="colorBackground">#EAE0D5</color>
+    <color name="colorSecondary">#875C4D</color>
+    <color name="colorTextLight">#FFFFFF</color>
+    <color name="colorTextDark">#3E2723</color>
+    <color name="colorAccentDark">#835C49</color>
+
+    <color name="bottomNavItemColor">#A4846C</color>
+    <color name="bottomNavSelectedColor">#C5B59C</color>
+
+    <color name="gradientStart">#6F4C3E</color>
+    <color name="gradientEnd">#805B4C</color>
+
 </resources>

@@ -2,4 +2,16 @@
     <string name="app_name">mecha</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="send">Отправить</string>
+    <string name="accept">Принять</string>
+
+
+    <string name="request_description">Опишите проблему</string>
+    <string name="request_price">Предложите вашу цену</string>
+    <string name="request_manufacturer">Производитель авто</string>
+    <string name="request_model">Модель авто</string>
+    <string name="request_year">Год выпуска</string>
+    <string name="request_VIN">VIN номер</string>
+
 </resources>

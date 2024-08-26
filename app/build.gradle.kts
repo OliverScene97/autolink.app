@@ -54,6 +54,7 @@ dependencies {
 
     implementation(libs.material.v130)
     implementation(libs.firebase.storage)
+    implementation(libs.cardview)
     annotationProcessor(libs.room.compiler)
 
     implementation(libs.picasso)
@@ -63,8 +64,6 @@ dependencies {
 
     implementation(libs.sdk.full)
     implementation(libs.firebase.appcheck.playintegrity)
-
-
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
