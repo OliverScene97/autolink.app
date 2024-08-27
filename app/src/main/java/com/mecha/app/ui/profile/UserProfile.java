@@ -1,27 +1,23 @@
 package com.mecha.app.ui.profile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserProfile {
 
-    public String avatarUrl;
-    public String carManufacturer;
-    public String carModel;
-    public String bodyType;
-    public String carYear;
-    public String vinNumber;
-    public String nickName;
+    private String avatarUrl;
+    private String nickName;
+    private List<CarCard> carCards;
 
     // Пустой конструктор необходим для Firebase
     public UserProfile() {
+        carCards = new ArrayList<>();
     }
 
-    public UserProfile(String avatarUrl, String carManufacturer, String carModel, String bodyType, String carYear, String vinNumber, String nickName) {
+    public UserProfile(String avatarUrl, String nickName, List<CarCard> carCards) {
         this.avatarUrl = avatarUrl;
-        this.carManufacturer = carManufacturer;
-        this.carModel = carModel;
-        this.bodyType = bodyType;
-        this.carYear = carYear;
-        this.vinNumber = vinNumber;
         this.nickName = nickName;
+        this.carCards = carCards != null ? carCards : new ArrayList<>();
     }
 
     // Геттеры и сеттеры
@@ -33,51 +29,34 @@ public class UserProfile {
         this.avatarUrl = avatarUrl;
     }
 
-    public String getCarManufacturer() {
-        return carManufacturer;
-    }
-
-    public void setCarManufacturer(String carManufacturer) {
-        this.carManufacturer = carManufacturer;
-    }
-
-    public String getCarModel() {
-        return carModel;
-    }
-
-    public void setCarModel(String carModel) {
-        this.carModel = carModel;
-    }
-
-    public String getBodyType() {
-        return bodyType;
-    }
-
-    public void setBodyType(String bodyType) {
-        this.bodyType = bodyType;
-    }
-
-    public String getCarYear() {
-        return carYear;
-    }
-
-    public void setCarYear(String carYear) {
-        this.carYear = carYear;
-    }
-
-    public String getVinNumber() {
-        return vinNumber;
-    }
-
-    public void setVinNumber(String vinNumber) {
-        this.vinNumber = vinNumber;
-    }
-
     public String getNickName() {
         return nickName;
     }
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    public List<CarCard> getCarCards() {
+        return carCards;
+    }
+
+    public void setCarCards(List<CarCard> carCards) {
+        this.carCards = carCards;
+    }
+
+    // Добавление карточки
+    public void addCarCard(CarCard carCard) {
+        if (carCards == null) {
+            carCards = new ArrayList<>();
+        }
+        carCards.add(carCard);
+    }
+
+    // Удаление карточки
+    public void removeCarCard(CarCard carCard) {
+        if (carCards != null) {
+            carCards.remove(carCard);
+        }
     }
 }
